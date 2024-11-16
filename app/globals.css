@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Override dark mode styles */
+:is(.dark *) .dark\:data-\[state\=unchecked\]\:bg-gray-800[data-state=unchecked] {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgba(232, 232, 232, 1) !important;
+}
+
+:is(.dark *) .dark\:bg-gray-950 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgba(27, 189, 111, 1) !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -109,17 +120,6 @@ html {
   .text-balance {
     text-wrap: balance;
   }
-}
-
-/* Custom dark mode styles */
-.dark\:data-\[state\=unchecked\]\:bg-gray-800[data-state=unchecked]:is(.dark *) {
-  --tw-bg-opacity: 1;
-  background-color: rgba(232, 232, 232, 1);
-}
-
-.dark\:bg-gray-950:is(.dark *) {
-  --tw-bg-opacity: 1;
-  background-color: rgba(27, 189, 111, 1);
 }
 
 /* Testimonials carousel animations */
