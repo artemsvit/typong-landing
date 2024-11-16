@@ -69,7 +69,7 @@ export const LandingPage = () => {
         </div>
         
         <div className="relative max-w-[980px] mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl lg:text-[80px] font-semibold tracking-tight mb-6 bg-gradient-to-r from-green-400 to-blue-500 inline-block text-transparent bg-clip-text px-4 py-2">
+          <h1 className="text-5xl md:text-6xl lg:text-[68px] font-semibold tracking-tight mb-6 bg-gradient-to-r from-green-400 to-blue-500 inline-block text-transparent bg-clip-text px-4 py-2">
             Make Typing Great Again
           </h1>
           <p className={`text-xl md:text-2xl mb-12 max-w-2xl mx-auto font-medium ${
