@@ -1,18 +1,17 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { ArrowDown, Check, Brain, MessageSquare, Zap, TimerReset, Hash, Languages, PenTool, BookOpen, History } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowDown, Check, Brain, MessageSquare, Moon, Sun, Zap, TimerReset, Hash, Languages, PenTool, BookOpen, History } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { TestimonialsCarousel } from './testimonials-carousel';
 import { Navigation } from "./navigation";
 import { ThemeToggle } from "./theme-toggle";
 import { Footer } from "./footer";
-import { useTheme } from 'next-themes';
 
 export const LandingPage = () => {
+  const [darkMode, setDarkMode] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,28 +23,30 @@ export const LandingPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className={`min-h-screen transition-colors duration-500 ${
+      darkMode ? 'bg-black text-white' : 'bg-white text-gray-900'
+    }`}>
       {/* Sticky Header */}
       <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrollPosition > 50 
-          ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800' 
-          : 'bg-transparent'
+        scrollPosition > 50
+          ? darkMode 
+            ? 'py-4 bg-gray-950/80 backdrop-blur-xl border-b border-gray-800'
+            : 'py-4 bg-white/80 backdrop-blur-xl border-b border-gray-100'
+          : 'py-8 bg-transparent'
       }`}>
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-8">
-            {/* Logo */}
-            <div className="flex items-center space-x-2">
-              <span className="text-2xl font-bold">Typong</span>
-              <div className="w-2 h-2 bg-blue-500 rounded-full logo-dot" />
-            </div>
-            
-            {/* Navigation */}
-            <Navigation />
-          </div>
-
-          <div className="flex items-center space-x-4">
-            <ThemeToggle />
-            <Button>Download</Button>
+        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+          <a href="#" onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }} className="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity group">
+            <div className="logo-dot w-[18px] h-[18px] rounded-full bg-gradient-to-r from-orange-400 to-orange-500"></div>
+            <span className="text-xl font-bold">Typong</span>
+          </a>
+          <Navigation />
+          <div className="flex items-center gap-2">
+            <Sun className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+            <Switch checked={darkMode} onCheckedChange={setDarkMode} />
+            <Moon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
           </div>
         </div>
       </header>
@@ -56,7 +57,7 @@ export const LandingPage = () => {
           <div className="absolute -inset-[10px] opacity-50">
             {/* Shimmer gradient background */}
             <div className={`absolute inset-0 bg-gradient-to-r ${
-              theme === 'dark' 
+              darkMode 
                 ? 'from-gray-900 via-gray-800 to-gray-900' 
                 : 'from-gray-100 via-gray-50 to-gray-100'
             } animate-shimmer`}></div>
@@ -68,14 +69,14 @@ export const LandingPage = () => {
             Make Typing Great Again
           </h1>
           <p className={`text-xl mb-12 max-w-2xl mx-auto ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+            darkMode ? 'text-gray-300' : 'text-gray-600'
           }`}>
             Transform your typing experience with AI-powered assistance. Write better, faster, and smarter across any application on your Mac.
           </p>
           <Button size="lg" className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white rounded-full px-8 py-6 text-lg transform transition-all duration-300 hover:scale-105">
             Download Free <ArrowDown className="ml-2 h-5 w-5" />
           </Button>
-          <div className={`mt-8 text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+          <div className={`mt-8 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
             macOS 12 or later required
           </div>
         </div>
@@ -83,7 +84,7 @@ export const LandingPage = () => {
 
       {/* Features Grid with Glassmorphism */}
       <section id="features" className={`py-24 relative overflow-hidden ${
-        theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
+        darkMode ? 'bg-gray-900' : 'bg-gray-50'
       }`}>
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-[54px] font-bold text-center mb-16 bg-gradient-to-r from-green-400 to-blue-500 inline-block text-transparent bg-clip-text">
@@ -149,11 +150,11 @@ export const LandingPage = () => {
               <div 
                 key={index} 
                 className={`p-6 rounded-2xl backdrop-blur-lg transform transition-all duration-300 hover:scale-105 ${
-                  theme === 'dark' 
+                  darkMode 
                     ? 'bg-gray-800/50 hover:bg-gray-800/70' 
                     : 'bg-white/50 hover:bg-white/70'
                 } border ${
-                  theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
+                  darkMode ? 'border-gray-700' : 'border-gray-200'
                 }`}
               >
                 <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-6 bg-gradient-to-r ${feature.gradient}`}>
@@ -162,7 +163,7 @@ export const LandingPage = () => {
                   })}
                 </div>
                 <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
-                <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>{feature.description}</p>
+                <p className={darkMode ? 'text-gray-300' : 'text-gray-600'}>{feature.description}</p>
               </div>
             ))}
           </div>
@@ -175,7 +176,7 @@ export const LandingPage = () => {
       </section>
 
       {/* Pricing Cards with Glassmorphism */}
-      <section id="pricing" className={`relative py-24 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
+      <section id="pricing" className={`relative py-24 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-[54px] font-bold text-center mb-16 bg-gradient-to-r from-green-400 to-blue-500 inline-block text-transparent bg-clip-text">
             Choose Your Plan
@@ -183,7 +184,7 @@ export const LandingPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Free Trial Card */}
             <div className={`p-8 rounded-2xl backdrop-blur-lg transform transition-all duration-300 hover:scale-105 flex flex-col min-h-[600px] ${
-              theme === 'dark' 
+              darkMode 
                 ? 'bg-gray-900/50 hover:bg-gray-900/70 border border-gray-800' 
                 : 'bg-gray-50/50 hover:bg-gray-50/70 border border-gray-200'
             }`}>
@@ -191,7 +192,7 @@ export const LandingPage = () => {
                 <div className="flex justify-between items-center">
                   <div className="text-2xl font-semibold">Free Trial</div>
                   <div className={`px-3 py-1 rounded-full text-sm ${
-                    theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'
+                    darkMode ? 'bg-gray-800' : 'bg-gray-100'
                   }`}>14 days</div>
                 </div>
                 <div className="text-5xl font-bold mt-6">$0</div>
@@ -219,7 +220,7 @@ export const LandingPage = () => {
 
             {/* Pro Card */}
             <div className={`relative p-8 rounded-2xl backdrop-blur-lg transform transition-all duration-300 hover:scale-105 flex flex-col min-h-[600px] ${
-              theme === 'dark' 
+              darkMode 
                 ? 'bg-gradient-to-b from-gray-900 to-black border border-green-500' 
                 : 'bg-gradient-to-b from-gray-900 to-black border border-green-500'
             }`}>

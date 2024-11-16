@@ -2,44 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 255, 255, 255;
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
+html {
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+  }
+ 
+  .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
   }
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-  @apply bg-background text-foreground;
-}
-
-/* Theme transition */
-* {
-  transition-property: color, background-color, border-color;
-  transition-duration: 200ms;
-  transition-timing-function: ease-in-out;
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
 @layer base {
@@ -64,9 +46,11 @@ body {
   @keyframes bounce {
     0%, 100% {
       transform: translateY(0);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
     }
     50% {
-      transform: translateY(-25%);
+      transform: translateY(-12px);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
     }
   }
 
@@ -113,8 +97,4 @@ body {
   .testimonial-slide.inactive {
     animation: slideOut 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
-}
-
-.bounce-animation:hover {
-  animation: bounce 0.5s ease-in-out infinite;
 }
