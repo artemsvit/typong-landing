@@ -10,13 +10,17 @@ import { ThemeToggle } from "./theme-toggle";
 import { Footer } from "./footer";
 
 export const LandingPage = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const [scrollPosition, setScrollPosition] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrollPosition(window.scrollY);
     };
+
+    // Force dark mode
+    setDarkMode(true);
+    document.documentElement.classList.add('dark');
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -64,16 +68,20 @@ export const LandingPage = () => {
           </div>
         </div>
         
-        <div className="relative max-w-7xl mx-auto text-center">
-          <h1 className="text-7xl font-bold tracking-tight mb-12 bg-gradient-to-r from-green-400 to-blue-500 inline-block text-transparent bg-clip-text px-4 py-2">
+        <div className="relative max-w-[980px] mx-auto text-center">
+          <h1 className="text-5xl md:text-6xl lg:text-[80px] font-semibold tracking-tight mb-6 bg-gradient-to-r from-green-400 to-blue-500 inline-block text-transparent bg-clip-text px-4 py-2">
             Make Typing Great Again
           </h1>
-          <p className={`text-xl mb-12 max-w-2xl mx-auto ${
-            darkMode ? 'text-gray-300' : 'text-gray-600'
+          <p className={`text-xl md:text-2xl mb-12 max-w-2xl mx-auto font-medium ${
+            darkMode ? 'text-gray-400' : 'text-gray-600'
           }`}>
-            Transform your typing experience with AI-powered assistance. Write better, faster, and smarter across any application on your Mac.
+            Experience the future of typing with AI-powered assistance
           </p>
-          <Button size="lg" className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white rounded-full px-8 py-6 text-lg transform transition-all duration-300 hover:scale-105">
+          <Button 
+            size="lg" 
+            variant="ghost"
+            className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 rounded-full px-8 py-6 text-lg transform transition-all duration-300 hover:scale-105 text-white hover:text-white"
+          >
             Download Free <ArrowDown className="ml-2 h-5 w-5" />
           </Button>
           <div className={`mt-8 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
@@ -82,12 +90,10 @@ export const LandingPage = () => {
         </div>
       </section>
 
-      {/* Features Grid with Glassmorphism */}
-      <section id="features" className={`py-24 relative overflow-hidden ${
-        darkMode ? 'bg-gray-900' : 'bg-gray-50'
-      }`}>
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-[54px] font-bold text-center mb-16 bg-gradient-to-r from-green-400 to-blue-500 inline-block text-transparent bg-clip-text">
+      {/* Features Section */}
+      <section id="features" className={`py-24 ${darkMode ? 'bg-black' : 'bg-white'}`}>
+        <div className="max-w-[980px] mx-auto px-6">
+          <h2 className={`text-4xl md:text-5xl lg:text-[54px] font-bold text-center mb-16 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             Smart Features Everywhere
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -155,15 +161,18 @@ export const LandingPage = () => {
                     : 'bg-white/50 hover:bg-white/70'
                 } border ${
                   darkMode ? 'border-gray-700' : 'border-gray-200'
-                }`}
-              >
+                }`}>
                 <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-6 bg-gradient-to-r ${feature.gradient}`}>
                   {React.cloneElement(feature.icon, { 
                     className: "h-6 w-6 text-white"
                   })}
                 </div>
-                <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
-                <p className={darkMode ? 'text-gray-300' : 'text-gray-600'}>{feature.description}</p>
+                <h3 className={`text-xl font-semibold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                  {feature.title}
+                </h3>
+                <p className={`${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
@@ -171,111 +180,101 @@ export const LandingPage = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials">
-        <TestimonialsCarousel />
+      <section className={`py-24 relative overflow-hidden ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className={`text-4xl md:text-5xl lg:text-[54px] font-bold text-center mb-16 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            What Users Say
+          </h2>
+          <TestimonialsCarousel darkMode={darkMode} />
+        </div>
       </section>
 
-      {/* Pricing Cards with Glassmorphism */}
-      <section id="pricing" className={`relative py-24 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-[54px] font-bold text-center mb-16 bg-gradient-to-r from-green-400 to-blue-500 inline-block text-transparent bg-clip-text">
+      {/* Pricing Section */}
+      <section id="pricing" className={`py-24 ${darkMode ? 'bg-black' : 'bg-gray-50'}`}>
+        <div className="max-w-[980px] mx-auto px-6">
+          <h2 className={`text-4xl md:text-5xl lg:text-[54px] font-bold text-center mb-16 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             Choose Your Plan
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Free Trial Card */}
-            <div className={`p-8 rounded-2xl backdrop-blur-lg transform transition-all duration-300 hover:scale-105 flex flex-col min-h-[600px] ${
+            <div className={`p-8 rounded-3xl backdrop-blur-lg transform transition-all duration-300 hover:scale-[1.02] flex flex-col ${
               darkMode 
-                ? 'bg-gray-900/50 hover:bg-gray-900/70 border border-gray-800' 
-                : 'bg-gray-50/50 hover:bg-gray-50/70 border border-gray-200'
+                ? 'bg-gray-800/50 hover:bg-gray-800/70' 
+                : 'bg-white/50 hover:bg-white/70'
+            } border ${
+              darkMode ? 'border-gray-700' : 'border-gray-200'
             }`}>
               <div>
-                <div className="flex justify-between items-center">
-                  <div className="text-2xl font-semibold">Free Trial</div>
-                  <div className={`px-3 py-1 rounded-full text-sm ${
-                    darkMode ? 'bg-gray-800' : 'bg-gray-100'
-                  }`}>14 days</div>
+                <div className="flex justify-between items-center mb-2">
+                  <h3 className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Free Trial</h3>
+                  <span className={`px-3 py-1 rounded-full text-sm ${
+                    darkMode ? 'bg-gray-700/50 text-gray-300' : 'bg-gray-100 text-gray-600'
+                  }`}>14 Days</span>
                 </div>
-                <div className="text-5xl font-bold mt-6">$0</div>
-                <div className="space-y-4 mt-8">
+                <div className="flex items-baseline gap-1 mb-6">
+                  <span className={`text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>$0</span>
+                  <span className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>/month</span>
+                </div>
+                <div className="space-y-4">
                   {[
-                    "Auto language detection",
-                    "Basic AI writing assistance",
-                    "5 AI commands per day",
+                    "Basic AI suggestions",
                     "3 custom shortcuts",
-                    "Standard response time"
+                    "Standard response time",
+                    "Basic features",
+                    "Single device",
+                    "Community support"
                   ].map((feature, index) => (
                     <div key={index} className="flex items-center">
                       <Check className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
-                      <span>{feature}</span>
+                      <span className={`${darkMode ? 'text-gray-300' : 'text-gray-900'}`}>{feature}</span>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="mt-auto pt-8">
-                <Button className="w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white rounded-full transform transition-all duration-300 hover:scale-105">
+              <div className="mt-8">
+                <button className="w-full py-4 px-8 rounded-xl font-semibold text-white bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 transform transition-all duration-200 hover:scale-[1.02]">
                   Download Free Trial
-                </Button>
+                </button>
               </div>
             </div>
 
-            {/* Pro Card */}
-            <div className={`relative p-8 rounded-2xl backdrop-blur-lg transform transition-all duration-300 hover:scale-105 flex flex-col min-h-[600px] ${
-              darkMode 
-                ? 'bg-gradient-to-b from-gray-900 to-black border border-green-500' 
-                : 'bg-gradient-to-b from-gray-900 to-black border border-green-500'
-            }`}>
-              <div className="text-white">
-                <div className="flex justify-between items-center">
-                  <div className="text-2xl font-semibold">Pro</div>
-                  <div className="bg-gradient-to-r from-green-400 to-blue-500 text-white text-sm px-3 py-1 rounded-full">
-                    MOST POPULAR
+            {/* Pro Plan Card */}
+            <div className="relative p-[1px] rounded-2xl transform transition-all duration-300 hover:scale-[1.02] group">
+              <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-blue-500 rounded-2xl" />
+              <div className={`relative rounded-2xl backdrop-blur-lg transform transition-all duration-300 h-full ${
+                darkMode 
+                  ? 'bg-gray-900 group-hover:bg-gray-800/70' 
+                  : 'bg-white group-hover:bg-white/70'
+              }`}>
+                <div className="p-8">
+                  <div>
+                    <h3 className={`text-2xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Pro Plan</h3>
+                    <div className="flex items-baseline gap-1 mb-6">
+                      <span className={`text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>$9.99</span>
+                      <span className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>/month</span>
+                    </div>
+                    <div className="space-y-4">
+                      {[
+                        "Everything in Free Trial",
+                        "Unlimited AI suggestions",
+                        "Priority support",
+                        "Early access to new features",
+                        "Custom keyboard shortcuts",
+                        "Cross-device sync"
+                      ].map((feature, index) => (
+                        <div key={index} className="flex items-center">
+                          <Check className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
+                          <span className={`${darkMode ? 'text-gray-300' : 'text-gray-900'}`}>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mt-8">
+                    <button className="w-full py-4 px-8 rounded-xl font-semibold text-white bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 transform transition-all duration-200 hover:scale-[1.02]">
+                      Get Started
+                    </button>
                   </div>
                 </div>
-                <div className="text-5xl font-bold mt-6">
-                  $4.99
-                  <span className="text-lg font-normal text-gray-400">/month</span>
-                </div>
-                <div className="space-y-4 mt-8">
-                  {[
-                    {
-                      title: "Unlimited AI powers",
-                      description: "No restrictions on AI usage"
-                    },
-                    {
-                      title: "Advanced text generation",
-                      description: "Generate emails, essays, and more"
-                    },
-                    {
-                      title: "Style matching",
-                      description: "AI adapts to your writing style"
-                    },
-                    {
-                      title: "Neural translation",
-                      description: "100+ languages with context awareness"
-                    },
-                    {
-                      title: "Smart workflows",
-                      description: "Create complex text processing chains"
-                    },
-                    {
-                      title: "Contextual awareness",
-                      description: "AI understands your writing context"
-                    }
-                  ].map((feature, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <Check className="h-5 w-5 text-green-400 mt-1 flex-shrink-0" />
-                      <div>
-                        <span className="block font-medium">{feature.title}</span>
-                        <p className="text-sm text-gray-400">{feature.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="mt-auto pt-8">
-                <Button className="w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white rounded-full transform transition-all duration-300 hover:scale-105">
-                  Upgrade to Pro
-                </Button>
               </div>
             </div>
           </div>

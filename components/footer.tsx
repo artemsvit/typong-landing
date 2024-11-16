@@ -2,6 +2,7 @@
 
 import { Github, Twitter, Linkedin } from 'lucide-react';
 import { smoothScroll } from '@/utils/smooth-scroll';
+import { useTheme } from 'next-themes';
 
 const FooterLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
   const isInternalLink = href.startsWith('#');
@@ -28,10 +29,12 @@ const FooterLink = ({ href, children }: { href: string; children: React.ReactNod
 };
 
 export const Footer = () => {
+  const { theme } = useTheme();
   const currentYear = new Date().getFullYear();
+  const isDark = theme === 'dark';
 
   return (
-    <footer className="border-t border-gray-200 dark:border-gray-800">
+    <footer className={`border-t ${isDark ? 'border-gray-700/40' : 'border-gray-200'}`}>
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -80,7 +83,7 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+        <div className={`flex flex-col md:flex-row justify-between items-center mt-12 pt-8 border-t ${isDark ? 'border-gray-700/40' : 'border-gray-200'}`}>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             &copy; {currentYear} Typong. All rights reserved.
           </p>

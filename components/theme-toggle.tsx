@@ -10,7 +10,10 @@ export const ThemeToggle = () => {
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    // Set dark theme by default
+    setTheme('dark');
+    document.documentElement.classList.add('dark');
+  }, [setTheme]);
 
   if (!mounted) {
     return null;

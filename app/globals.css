@@ -175,3 +175,39 @@ html {
 .logo-dot:hover {
   animation: bounce 0.5s infinite;
 }
+
+/* Add these styles for the mobile menu */
+.mobile-menu-enter {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.mobile-menu-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+.mobile-menu-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.mobile-menu-exit-active {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+/* Dark mode overrides */
+.dark .mobile-nav-button {
+  @apply text-gray-300 hover:text-white;
+}
+
+.dark .mobile-nav-menu {
+  @apply bg-gray-800 border-gray-700;
+}
+
+.dark .mobile-nav-link {
+  @apply text-gray-300 hover:text-white hover:bg-gray-700;
+}
