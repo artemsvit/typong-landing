@@ -105,6 +105,12 @@ html {
   }
 }
 
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
 /* Custom dark mode styles */
 .dark\:data-\[state\=unchecked\]\:bg-gray-800[data-state=unchecked]:is(.dark *) {
   --tw-bg-opacity: 1;
@@ -114,6 +120,46 @@ html {
 .dark\:bg-gray-950:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgba(27, 189, 111, 1);
+}
+
+/* Testimonials carousel animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+@layer components {
+  .testimonial-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  .testimonial-slide.active {
+    animation: slideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .testimonial-slide.inactive {
+    animation: slideOut 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
 }
 
 /* Logo bounce animation */
